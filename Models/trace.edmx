@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TestDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dealer">
+          <Key>
+            <PropertyRef Name="DealerID" />
+          </Key>
+          <Property Name="DealerID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DealerName" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ImportData">
+          <Key>
+            <PropertyRef Name="ImportDataID" />
+          </Key>
+          <Property Name="ImportDataID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductID" Type="varchar" MaxLength="50" />
+          <Property Name="MFD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EXP" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lisence" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Declaration" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Item" Type="int" Nullable="false" />
+          <Property Name="PurchaseNum" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrderID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShippingDate" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="DealerID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ImportDataID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TotalWeight" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OutboundData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Owner" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DealerID" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ShippingData" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductName" Type="varchar(max)" Nullable="false" />
+          <Property Name="MFD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lisence" Type="varchar(max)" Nullable="false" />
+          <Property Name="Declaration" Type="varchar(max)" Nullable="false" />
+          <Property Name="EXP" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Discription" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Amount" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Volume" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Weight" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Driver" Type="varchar(max)" Nullable="false" />
+          <Property Name="CarNum" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductName" Type="varchar(max)" Nullable="false" />
+          <Property Name="Weight" Type="float" Nullable="false" />
+          <Property Name="Ingredient" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__ImportDat__Produ__21B6055D">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ImportData" Type="Self.ImportData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ImportData">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderData__Deale__2C3393D0">
+          <End Role="Dealer" Type="Self.Dealer" Multiplicity="1" />
+          <End Role="OrderData" Type="Self.OrderData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dealer">
+              <PropertyRef Name="DealerID" />
+            </Principal>
+            <Dependent Role="OrderData">
+              <PropertyRef Name="DealerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderData__Impor__2D27B809">
+          <End Role="ImportData" Type="Self.ImportData" Multiplicity="1" />
+          <End Role="OrderData" Type="Self.OrderData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportData">
+              <PropertyRef Name="ImportDataID" />
+            </Principal>
+            <Dependent Role="OrderData">
+              <PropertyRef Name="ImportDataID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestDataModelStoreContainer">
+          <EntitySet Name="Dealer" EntityType="Self.Dealer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImportData" EntityType="Self.ImportData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderData" EntityType="Self.OrderData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OutboundData" EntityType="Self.OutboundData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ImportDat__Produ__21B6055D" Association="Self.FK__ImportDat__Produ__21B6055D">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ImportData" EntitySet="ImportData" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderData__Deale__2C3393D0" Association="Self.FK__OrderData__Deale__2C3393D0">
+            <End Role="Dealer" EntitySet="Dealer" />
+            <End Role="OrderData" EntitySet="OrderData" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderData__Impor__2D27B809" Association="Self.FK__OrderData__Impor__2D27B809">
+            <End Role="ImportData" EntitySet="ImportData" />
+            <End Role="OrderData" EntitySet="OrderData" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Dealer">
+          <Key>
+            <PropertyRef Name="DealerID" />
+          </Key>
+          <Property Name="DealerID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DealerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="OrderData" Relationship="Self.FK__OrderData__Deale__2C3393D0" FromRole="Dealer" ToRole="OrderData" />
+        </EntityType>
+        <EntityType Name="ImportData">
+          <Key>
+            <PropertyRef Name="ImportDataID" />
+          </Key>
+          <Property Name="ImportDataID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MFD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EXP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lisence" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Declaration" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Item" Type="Int32" Nullable="false" />
+          <Property Name="PurchaseNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__ImportDat__Produ__21B6055D" FromRole="ImportData" ToRole="Product" />
+          <NavigationProperty Name="OrderData" Relationship="Self.FK__OrderData__Impor__2D27B809" FromRole="ImportData" ToRole="OrderData" />
+        </EntityType>
+        <EntityType Name="OrderData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OrderID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ShippingDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="DealerID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImportDataID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TotalWeight" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Dealer" Relationship="Self.FK__OrderData__Deale__2C3393D0" FromRole="OrderData" ToRole="Dealer" />
+          <NavigationProperty Name="ImportData" Relationship="Self.FK__OrderData__Impor__2D27B809" FromRole="OrderData" ToRole="ImportData" />
+        </EntityType>
+        <EntityType Name="OutboundData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DealerID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ShippingData" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MFD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lisence" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Declaration" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EXP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Discription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Amount" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Volume" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Weight" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Driver" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CarNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Weight" Type="Double" Nullable="false" />
+          <Property Name="Ingredient" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ImportData" Relationship="Self.FK__ImportDat__Produ__21B6055D" FromRole="Product" ToRole="ImportData" />
+        </EntityType>
+        <Association Name="FK__OrderData__Deale__2C3393D0">
+          <End Role="Dealer" Type="Self.Dealer" Multiplicity="1" />
+          <End Role="OrderData" Type="Self.OrderData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dealer">
+              <PropertyRef Name="DealerID" />
+            </Principal>
+            <Dependent Role="OrderData">
+              <PropertyRef Name="DealerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImportDat__Produ__21B6055D">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ImportData" Type="Self.ImportData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ImportData">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderData__Impor__2D27B809">
+          <End Role="ImportData" Type="Self.ImportData" Multiplicity="1" />
+          <End Role="OrderData" Type="Self.OrderData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ImportData">
+              <PropertyRef Name="ImportDataID" />
+            </Principal>
+            <Dependent Role="OrderData">
+              <PropertyRef Name="ImportDataID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dealer" EntityType="Self.Dealer" />
+          <EntitySet Name="ImportData" EntityType="Self.ImportData" />
+          <EntitySet Name="OrderData" EntityType="Self.OrderData" />
+          <EntitySet Name="OutboundData" EntityType="Self.OutboundData" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <AssociationSet Name="FK__OrderData__Deale__2C3393D0" Association="Self.FK__OrderData__Deale__2C3393D0">
+            <End Role="Dealer" EntitySet="Dealer" />
+            <End Role="OrderData" EntitySet="OrderData" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImportDat__Produ__21B6055D" Association="Self.FK__ImportDat__Produ__21B6055D">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ImportData" EntitySet="ImportData" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderData__Impor__2D27B809" Association="Self.FK__OrderData__Impor__2D27B809">
+            <End Role="ImportData" EntitySet="ImportData" />
+            <End Role="OrderData" EntitySet="OrderData" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestDataModelStoreContainer" CdmEntityContainer="TestDataEntities">
+          <EntitySetMapping Name="Dealer">
+            <EntityTypeMapping TypeName="TestDataModel.Dealer">
+              <MappingFragment StoreEntitySet="Dealer">
+                <ScalarProperty Name="DealerID" ColumnName="DealerID" />
+                <ScalarProperty Name="DealerName" ColumnName="DealerName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImportData">
+            <EntityTypeMapping TypeName="TestDataModel.ImportData">
+              <MappingFragment StoreEntitySet="ImportData">
+                <ScalarProperty Name="ImportDataID" ColumnName="ImportDataID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="MFD" ColumnName="MFD" />
+                <ScalarProperty Name="EXP" ColumnName="EXP" />
+                <ScalarProperty Name="Lisence" ColumnName="Lisence" />
+                <ScalarProperty Name="Declaration" ColumnName="Declaration" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="PurchaseNum" ColumnName="PurchaseNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderData">
+            <EntityTypeMapping TypeName="TestDataModel.OrderData">
+              <MappingFragment StoreEntitySet="OrderData">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ShippingDate" ColumnName="ShippingDate" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DealerID" ColumnName="DealerID" />
+                <ScalarProperty Name="ImportDataID" ColumnName="ImportDataID" />
+                <ScalarProperty Name="TotalWeight" ColumnName="TotalWeight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OutboundData">
+            <EntityTypeMapping TypeName="TestDataModel.OutboundData">
+              <MappingFragment StoreEntitySet="OutboundData">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="DealerID" ColumnName="DealerID" />
+                <ScalarProperty Name="ShippingData" ColumnName="ShippingData" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="MFD" ColumnName="MFD" />
+                <ScalarProperty Name="Lisence" ColumnName="Lisence" />
+                <ScalarProperty Name="Declaration" ColumnName="Declaration" />
+                <ScalarProperty Name="EXP" ColumnName="EXP" />
+                <ScalarProperty Name="Discription" ColumnName="Discription" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Driver" ColumnName="Driver" />
+                <ScalarProperty Name="CarNum" ColumnName="CarNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="TestDataModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Ingredient" ColumnName="Ingredient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

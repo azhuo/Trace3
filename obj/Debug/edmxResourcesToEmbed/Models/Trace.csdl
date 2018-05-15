@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Dealer">
+    <Key>
+      <PropertyRef Name="DealerID" />
+    </Key>
+    <Property Name="DealerID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DealerName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="OrderData" Relationship="Self.FK__OrderData__Deale__2C3393D0" FromRole="Dealer" ToRole="OrderData" />
+  </EntityType>
+  <EntityType Name="ImportData">
+    <Key>
+      <PropertyRef Name="ImportDataID" />
+    </Key>
+    <Property Name="ImportDataID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MFD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EXP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Lisence" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Declaration" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Item" Type="Int32" Nullable="false" />
+    <Property Name="PurchaseNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK__ImportDat__Produ__21B6055D" FromRole="ImportData" ToRole="Product" />
+    <NavigationProperty Name="OrderData" Relationship="Self.FK__OrderData__Impor__2D27B809" FromRole="ImportData" ToRole="OrderData" />
+  </EntityType>
+  <EntityType Name="OrderData">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OrderID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ShippingDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+    <Property Name="DealerID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ImportDataID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TotalWeight" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Dealer" Relationship="Self.FK__OrderData__Deale__2C3393D0" FromRole="OrderData" ToRole="Dealer" />
+    <NavigationProperty Name="ImportData" Relationship="Self.FK__OrderData__Impor__2D27B809" FromRole="OrderData" ToRole="ImportData" />
+  </EntityType>
+  <EntityType Name="OutboundData">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="OrderID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DealerID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ShippingData" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MFD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Lisence" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Declaration" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EXP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Discription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Amount" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Volume" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Weight" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Code" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Driver" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CarNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Weight" Type="Double" Nullable="false" />
+    <Property Name="Ingredient" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ImportData" Relationship="Self.FK__ImportDat__Produ__21B6055D" FromRole="Product" ToRole="ImportData" />
+  </EntityType>
+  <Association Name="FK__OrderData__Deale__2C3393D0">
+    <End Role="Dealer" Type="Self.Dealer" Multiplicity="1" />
+    <End Role="OrderData" Type="Self.OrderData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dealer">
+        <PropertyRef Name="DealerID" />
+      </Principal>
+      <Dependent Role="OrderData">
+        <PropertyRef Name="DealerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ImportDat__Produ__21B6055D">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ImportData" Type="Self.ImportData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="ImportData">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderData__Impor__2D27B809">
+    <End Role="ImportData" Type="Self.ImportData" Multiplicity="1" />
+    <End Role="OrderData" Type="Self.OrderData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ImportData">
+        <PropertyRef Name="ImportDataID" />
+      </Principal>
+      <Dependent Role="OrderData">
+        <PropertyRef Name="ImportDataID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TestDataEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Dealer" EntityType="Self.Dealer" />
+    <EntitySet Name="ImportData" EntityType="Self.ImportData" />
+    <EntitySet Name="OrderData" EntityType="Self.OrderData" />
+    <EntitySet Name="OutboundData" EntityType="Self.OutboundData" />
+    <EntitySet Name="Product" EntityType="Self.Product" />
+    <AssociationSet Name="FK__OrderData__Deale__2C3393D0" Association="Self.FK__OrderData__Deale__2C3393D0">
+      <End Role="Dealer" EntitySet="Dealer" />
+      <End Role="OrderData" EntitySet="OrderData" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImportDat__Produ__21B6055D" Association="Self.FK__ImportDat__Produ__21B6055D">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ImportData" EntitySet="ImportData" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderData__Impor__2D27B809" Association="Self.FK__OrderData__Impor__2D27B809">
+      <End Role="ImportData" EntitySet="ImportData" />
+      <End Role="OrderData" EntitySet="OrderData" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
