@@ -1,0 +1,74 @@
+﻿@model Trace3.Models.ImportData
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ImportData</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MFD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MFD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EXP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EXP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lisence)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lisence)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Declaration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Declaration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Item)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Item)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.ProductName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ImportDataID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

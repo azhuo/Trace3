@@ -1,0 +1,146 @@
+﻿@model Trace3.Models.OutboundData
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OutboundData</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DealerID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DealerID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShippingData)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShippingData)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MFD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MFD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lisence)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lisence)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Declaration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Declaration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EXP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EXP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Volume)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Volume)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Driver)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Driver)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CarNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CarNum)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

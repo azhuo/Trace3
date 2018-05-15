@@ -1,0 +1,80 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<Trace3.Models.OutboundData>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Outbound Raw Data</h2>
+<div class="well">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#UploadModal">
+        Import Data
+    </button>
+    <button class="btn btn-primary" id="ButtonExport" name="ButtonExport">
+        Export Data
+    </button>
+</div>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().OrderID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Lisence)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Declaration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Weight)
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lisence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Declaration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight)
+            </td>
+        </tr>
+    }
+</table>
+@Html.Partial("_UploadFile")
+@section scripts
+{
+    <script src="~/Scripts/bootbox.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/project.js"></script>
+    <script src="~/Scripts/project.extends.js"></script>
+    <script src="~/Scripts/projectOutbound.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var actionUrls = {
+                Upload: '@Url.Action("Upload", "OutboundDatas")',
+                Import: '@Url.Action("Import", "OutboundData")',
+                HasData: '@Url.Action("HasData", "OutboundData")',
+                ExportData: '@Url.Action("Export", "OutboundData")'
+            };
+            project.ZipCode.Initialize(actionUrls);
+        });
+    </script>
+}

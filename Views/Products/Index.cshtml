@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Trace3.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class="well">
+    <button class="btn btn-primary" id="ButtonExport" name="ButtonExport">
+        Export Data
+    </button>
+</div>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ingredient)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ingredient)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
+        </td>
+    </tr>
+}
+
+</table>
+
+@section scripts
+{
+    <script src="~/Scripts/bootbox.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/project.js"></script>
+    <script src="~/Scripts/project.extend.js"></script>
+    <script src="~/Scripts/projectOutbound.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var actionUrls = {
+                HasData: '@Url.Action("HasData", "OutboundDatas")',
+                ExportData: '@Url.Action("Export", "OutboundDatas")'
+            };
+            project.OutboundData.Initialize(actionUrls);
+        });
+    </script>
+
+}
