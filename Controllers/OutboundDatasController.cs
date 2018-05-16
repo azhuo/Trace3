@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -11,6 +11,8 @@ using Newtonsoft.Json.Linq;
 using PagedList;
 using Trace3.Models;
 using Trace3.Service;
+using System.Data.Entity;
+using System.Net;
 
 namespace Trace3.Controllers
 {
@@ -205,6 +207,95 @@ namespace Trace3.Controllers
                 jObjects.Add(jo);
             }
             return jObjects;
+        }
+
+        // GET: OutboundDatas/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: OutboundRawDatas/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ID,OrderID,Owner,DealerID,ShippingData,ProductName,MFD,Lisence,Declaration,EXP,Discription,Amount,Volume,Weight,Code,Driver,CarNum")] OutboundData outboundData)
+        {
+            if (ModelState.IsValid)
+            {
+                db.OutboundData.Add(outboundData);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(outboundData);
+        }
+
+        // GET: OutboundRawDatas/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            OutboundData outboundRawData = db.OutboundData.Find(id);
+            if (outboundRawData == null)
+            {
+                return HttpNotFound();
+            }
+            return View(outboundRawData);
+        }
+
+        // POST: OutboundRawDatas/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID,OrderID,Owner,DealerID,ShippingData,ProductName,MFD,Lisence,Declaration,EXP,Discription,Amount,Volume,Weight,Code,Driver,CarNum")] OutboundData outboundRawData)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(outboundRawData).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(outboundRawData);
+        }
+
+        // GET: OutboundRawDatas/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            OutboundData outboundRawData = db.OutboundData.Find(id);
+            if (outboundRawData == null)
+            {
+                return HttpNotFound();
+            }
+            return View(outboundRawData);
+        }
+
+        // POST: OutboundRawDatas/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            OutboundData outboundRawData = db.OutboundData.Find(id);
+            db.OutboundData.Remove(outboundRawData);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
     }
