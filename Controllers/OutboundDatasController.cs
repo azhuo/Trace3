@@ -13,6 +13,7 @@ using Trace3.Models;
 using Trace3.Service;
 using System.Data.Entity;
 using System.Net;
+using System.Data.Entity.Validation;
 
 namespace Trace3.Controllers
 {
@@ -156,10 +157,12 @@ namespace Trace3.Controllers
                 }
                 result = JsonConvert.SerializeObject(jo);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw;
             }
+                               
+            
             return Content(result, "application/json");
         }
 
