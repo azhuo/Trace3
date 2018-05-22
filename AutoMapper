@@ -1,0 +1,6 @@
+source: https://dotblogs.com.tw/yc421206/2016/07/15/automapper_version_5_mapperconfiguration
+var order = new Order(){};
+var config = new MapperConfiguration(cfg => cfg.CreateMap<Order, OrderViewModel>());
+config.AssertConfigurationIsValid();//驗證應對
+var mapper = config.CreateMapper();
+var orderView = mapper.Map<OrderViewModel>(order);
